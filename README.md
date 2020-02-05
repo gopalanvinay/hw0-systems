@@ -21,6 +21,6 @@ The motivation behind these numbers was based on the time it took the code to fi
 
 For each iteration, I ran the code 10 times and picked a number which was accurate to its 1000th place. The number of iterations was tweaked as desired in order to obtain this precision.
 
-#### c.
+#### c. Below is a plot of the mean time per coordinate as a function of the number of objects.
 
 ![Image of Python plot](/plots/py_plot.jpg)
