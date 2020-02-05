@@ -20,3 +20,7 @@ The motivation behind these numbers was based on the time it took the code to fi
 #### b. Picking one measurement:
 
 For each iteration, I ran the code 10 times and picked a number which was accurate to its 1000th place. The number of iterations was tweaked as desired in order to obtain this precision.
+
+#### c.
+
+![Image of Python plot](/plots/py_plot.jpg)
