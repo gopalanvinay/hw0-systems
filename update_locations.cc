@@ -1,32 +1,25 @@
 #include <iostream>
+#include <stdio.h>
 #include <sstream>
 #include <vector>
 #include <random>
-#include <time.h>
+#include <chrono>
+
+#define timeNow() std::chrono::high_resolution_clock::now()
+
+typedef float unit;
 
 using namespace std; 
-
-// Get random floating point number in the range [-bound, bound]
-
-/*
-float get_random(float bound)
-{
-    default_random_engine e;
-    uniform_real_distribution<float> dis(-bound, bound);
-    return dis(e);
-}
-*/
 
 // Create a list of 'size' floating point numbers in the range [-bound, bound]
 vector<float> generate_random_list(int size, float bound)
 {
+    vector<float> random_list(size);
     default_random_engine e;
     uniform_real_distribution<> dis(-bound, bound);
-    vector<float> random_list(size);
 
     for(int i=0; i<size;i++){
-        int rand_int = dis(e);
-        random_list[i] = rand_int;
+        random_list[i] = dis(e);
     }
 
     return random_list;
@@ -34,7 +27,7 @@ vector<float> generate_random_list(int size, float bound)
 
 // Update position by velocity, one time-step
 void update_coords(vector<float> &xs, vector<float> &ys, vector<float> &zs,
-                   vector<float> vx, vector<float> vy, vector<float> vz)
+                   vector<float> const& vx, vector<float> const& vy, vector<float> const& vz)
 {
     for(int i=0; i < xs.size();i++){
         xs[i] = xs[i] + vx[i];
@@ -43,8 +36,8 @@ void update_coords(vector<float> &xs, vector<float> &ys, vector<float> &zs,
     }
 }
 
-// Print vectors
-void printf(vector<float> vect)
+// Print vectors (HELPER)
+void printvec(vector<float> vect)
 {
     for(int i=0; i<vect.size();i++){
         cout << vect[i] << endl;
@@ -64,36 +57,26 @@ int main(int argc, char **argv)
 
     if(iss1 >> size && iss2 >> iters)
     {
-        vector<float> xs = generate_random_list(size, 1000.0);
-        vector<float> ys = generate_random_list(size, 1000.0);
-        vector<float> zs = generate_random_list(size, 1000.0);
-        vector<float> vx = generate_random_list(size, 1.0);
-        vector<float> vy = generate_random_list(size, 1.0);
-        vector<float> vz = generate_random_list(size, 1.0);
+        vector<unit> xs = generate_random_list(size, 1000.0);
+        vector<unit> ys = generate_random_list(size, 1000.0);
+        vector<unit> zs = generate_random_list(size, 1000.0);
+        vector<unit> vx = generate_random_list(size, 1.0);
+        vector<unit> vy = generate_random_list(size, 1.0);
+        vector<unit> vz = generate_random_list(size, 1.0);
 
-        printf(xs);
-
-        struct timespec requestStart, requestEnd;
-        clock_gettime(CLOCK_MONOTONIC, &requestStart);
+        auto t1 = timeNow();
         for(int i=0; i<iters; i++)
         {
             update_coords(xs,ys,zs,vx,vy,vz);
         }
-        
-        clock_gettime(CLOCK_MONOTONIC, &requestEnd);
+        auto t2 = timeNow();
+        double duration = chrono::duration_cast<chrono::microseconds>( t2 - t1 ).count();
 
+        double checkSum = accumulate(xs.begin(),xs.end(),0.0) + accumulate(ys.begin(),ys.end(),0.0) 
+                        + accumulate(zs.begin(),zs.end(),0.0);
 
-        float t = ( requestEnd.tv_sec - requestStart.tv_sec
-        + requestEnd.tv_nsec - requestStart.tv_nsec );
-
-        int checkSum = accumulate(xs.begin(),xs.end(),0) + accumulate(ys.begin(),ys.end(),0) 
-                        + accumulate(zs.begin(),zs.end(),0);
-
-
-        cout << "Mean time per coordinate: " <<  t / (size * iters) <<  "us" << endl;
-        cout << "Final checksum is: " << checkSum << endl;
-
-        cout << "Check" << endl;
+        printf("Mean time per coordinate: %f us\n" ,(duration / (size * iters)));
+        printf("Final checksum is: %f\n", checkSum);
 
         return 0;
     }
