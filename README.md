@@ -19,7 +19,11 @@ The motivation behind these numbers was based on the time it took the code to fi
 
 #### b. Picking one measurement:
 
-For each iteration, I ran the code 10 times and picked a number which was accurate to its 1000th place. The number of iterations was tweaked as desired in order to obtain this precision. Finally, the resulting number was the mean of all 10 iterations.
+For each iteration, I ran the code 10 times and picked a number which was accurate to its 1000th place. The number of iterations was tweaked as desired in order to obtain this precision.
+
+#### c. Below is a plot of the mean time per coordinate as a function of the number of objects.
+
+![Image of Python plot](/plots/py_plot.jpg)
 
 ### Part 2
 With C++, I was able to get 100x faster performance for the same number of objects and iterations, and at larger number of objects I could run the code for double the number of iterations. The faster performance can be seen from the graph.
