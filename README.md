@@ -26,4 +26,6 @@ For each iteration, I ran the code 10 times and picked a number which was accura
 ![Image of Python plot](/plots/py_plot.jpg)
 
 ### Part 2
-With C++, I was able to get 100x faster performance for the same number of objects and iterations, and at larger number of objects I could run the code for double the number of iterations. The faster performance can be seen from the graph.
+With C++, I was able to get 100x faster performance for the same number of objects and iterations, and at larger number of objects I could run the code for double the number of iterations. The faster performance can be seen from the graph. Note: The Y Axis is in logscale.
+
+![Image of Python & C++ plot](/plots/py_cpp_plot.jpg)
