@@ -1,6 +1,6 @@
 ## HW0: Galaxy Explorers
 
-This project deals with porting a Python benchmark to C++ and analyzing the scaling properties of both the Python and the C++ code.
+This project deals with porting a Python benchmark to C++ and analyzing the scaling properties of both the Python and the C++ code. The data for the plots can be found in `data_points.csv`.
 
 ### Part 1
 #### a. The following are the number of iterations I picked at different sizes:
@@ -19,13 +19,38 @@ The motivation behind these numbers was based on the time it took the code to fi
 
 #### b. Picking one measurement:
 
-For each iteration, I ran the code 10 times and picked a number which was accurate to its 1000th place. The number of iterations was tweaked as desired in order to obtain this precision.
+For each iteration, I ran the code 10 times and picked a number which was accurate to its 1000th place. The number of iterations was tweaked as desired in order to obtain this precision. The final measurement was made by taking the mean of all 10 runs.
 
 #### c. Below is a plot of the mean time per coordinate as a function of the number of objects.
 
 ![Image of Python plot](/plots/py_plot.jpg)
 
 ### Part 2
-With C++, I was able to get 100x faster performance for the same number of objects and iterations, and at larger number of objects I could run the code for double the number of iterations. The faster performance can be seen from the graph. Note: The Y Axis is in logscale.
+With C++, I was able to get 100x faster performance for the same number of objects and iterations, and I could run the code for double the number of iterations. The faster performance can be seen from the graph. Note: The Y Axis is in logscale.
 
 ![Image of Python & C++ plot](/plots/py_cpp_plot.jpg)
+
+
+### Part 3
+Here are the mean times per coordinates for all the different data types. The code works the fastest for `float`, `int16_t` and `int32_t` data types:
+
+1. float: 0.0021us
+2. double: 0.0027us
+3. int8_t: 0.0037us
+4. int16_t: 0.0021us
+5. int32_t: 0.0022us
+6. int64_t: 0.0027us
+
+### Part 4
+I used `/usr/bin/time -v` as suggested, and the results are the following:
+
+#### C++
+    1. Maximum resident set size (kbytes): 52156
+    2. User time (seconds): 1.29
+    3. Percent of CPU this job got: 99%
+#### Python
+    1. Maximum resident set size (kbytes): 211324
+    2. User time (seconds): 1.29
+    3. Percent of CPU this job got: 99%
+
+Clearly, the Python benchmark uses almost 4x the memory that the C++ benchmark uses.
