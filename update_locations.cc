@@ -12,9 +12,9 @@ typedef float unit;
 using namespace std; 
 
 // Create a list of 'size' floating point numbers in the range [-bound, bound]
-vector<float> generate_random_list(int size, float bound)
+vector<unit> generate_random_list(int size, float bound)
 {
-    vector<float> random_list(size);
+    vector<unit> random_list(size);
     default_random_engine e;
     uniform_real_distribution<> dis(-bound, bound);
 
@@ -26,21 +26,13 @@ vector<float> generate_random_list(int size, float bound)
 }
 
 // Update position by velocity, one time-step
-void update_coords(vector<float> &xs, vector<float> &ys, vector<float> &zs,
-                   vector<float> const& vx, vector<float> const& vy, vector<float> const& vz)
+void update_coords(vector<unit> &xs, vector<unit> &ys, vector<unit> &zs,
+                   vector<unit> const& vx, vector<unit> const& vy, vector<unit> const& vz)
 {
     for(int i=0; i < xs.size();i++){
         xs[i] = xs[i] + vx[i];
         ys[i] = ys[i] + vy[i];
         zs[i] = zs[i] + vz[i];
-    }
-}
-
-// Print vectors (HELPER)
-void printvec(vector<float> vect)
-{
-    for(int i=0; i<vect.size();i++){
-        cout << vect[i] << endl;
     }
 }
 
