@@ -50,7 +50,7 @@ I used `/usr/bin/time -v` as suggested, and the results are the following:
     3. Percent of CPU this job got: 99%
 #### Python
     1. Maximum resident set size (kbytes): 211324
-    2. User time (seconds): 1.29
+    2. User time (seconds): 23.11
     3. Percent of CPU this job got: 99%
 
 Clearly, the Python benchmark uses almost 4x the memory that the C++ benchmark uses.
